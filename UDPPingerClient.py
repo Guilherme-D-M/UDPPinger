@@ -1,16 +1,16 @@
 import sys, time
 from socket import *
 
-# Obtenha o nome do host e a porta do servidor como argumentos de linha de comando
+# Obtem o nome do host e a porta do servidor como argumentos de linha de comando
                     
 host = "127.0.0.1"
 port = 1212
-timeout = 1 # in second
+timeout = 1 # em segundos
  
-# Create UDP client socket
+# Cria socket cliente UDP
 # Observe o uso de SOCK_DGRAM para pacote de datagrama UDP
 clientsocket = socket(AF_INET, SOCK_DGRAM)
-# Definir o tempo limite do soquete como 1 segundo
+# Define o tempo limite do soquete como 1 segundo
 clientsocket.settimeout(timeout)
 # Número de sequência da mensagem de ping
 ptime = 0  
@@ -18,7 +18,7 @@ ptime = 0
 # Ping por 10 vezes
 while ptime < 10: 
     ptime += 1
-    # Formate a mensagem a ser enviada
+    # Formata a mensagem a ser enviada
     data = "Ping " + str(ptime) + " " + time.asctime()
     
     try:
@@ -31,14 +31,14 @@ while ptime < 10:
         string = host
         hostBytes = string.encode("utf-8")
 
-        # Envie o pacote UDP com a mensagem de ping
+        # Envia o pacote UDP com a mensagem de ping
         clientsocket.sendto(dataBytes,(hostBytes, port))
-        # Receber a resposta do servidor
+        # Recebe a resposta do servidor
         message, address = clientsocket.recvfrom(1024)
         
         # Hora de recebimento
         RTTa = time.time()
-        # Exibir a resposta do servidor como uma saída
+        # Exibe a resposta do servidor como uma saída
 
         message  = message.decode("utf-8")    
         print ("Reply from " + address[0] + ": " + message)
@@ -50,6 +50,6 @@ while ptime < 10:
           # Suponha que o pacote está perdido
           print ("Request timed out.")
           continue
-# Close the client socket
+# Fecha o soquete do cliente
 clientsocket.close()
  
